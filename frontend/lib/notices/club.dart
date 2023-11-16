@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:noticeboard/search.dart';
+import 'package:noticeboard/write.dart';
 
 class clubboard extends StatelessWidget{
   @override
@@ -20,7 +22,12 @@ class clubboard extends StatelessWidget{
         ),
         actions: <Widget>[
           IconButton(onPressed: (){
-            //검색창
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => searching(),
+              )
+            );
           }, icon: Icon(Icons.search,color: Colors.black, size: 30,)),
           SizedBox(width: 20,)
         ],
@@ -28,300 +35,329 @@ class clubboard extends StatelessWidget{
         toolbarHeight: 65,
         backgroundColor: Colors.transparent,
       ),
-      body: Column(
+      body: Stack(
         children: [
-          Container(
-            width: 400,
-            height: 4,
-            color: Color.fromARGB(255, 130, 173, 252),
+          Positioned(
+            left: 17,
+            child: Container(
+              width: 400,
+              height: 4,
+              color: Color.fromARGB(255, 130, 173, 252),
+            ),
           ),
-          Container(
-            width: 400,
-            height: 700,
-            margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
-            child: ListView(
-              scrollDirection: Axis.vertical,
-              children: [
-                Container(
-                  width: 380,
-                  height: 90,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Color.fromARGB(60, 0, 0, 0), width: 1),
-                    color: Color(0xffEFEFEF),
-                    borderRadius: BorderRadius.circular(10),
+          Positioned(
+            top: 5,
+            left: 0,
+            right: 0,
+            child: Container(
+              width: 400,
+              height: 700,
+              margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
+              child: ListView(
+                scrollDirection: Axis.vertical,
+                children: [
+                  Container(
+                    width: 380,
+                    height: 90,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Color.fromARGB(60, 0, 0, 0), width: 1),
+                      color: Color(0xffEFEFEF),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: TextButton(onPressed: (){
+                      //해당게시물로 가기
+                      print('hello');
+                    }, child: Text('')),
                   ),
-                  child: TextButton(onPressed: (){
-                    //해당게시물로 가기
-                    print('hello');
-                  }, child: Text('')),
-                ),
-                Container(
-                  width: 380,
-                  height: 90,
-                  margin: EdgeInsets.only(top: 20),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Color.fromARGB(60, 0, 0, 0), width: 1),
-                    color: Color(0xffEFEFEF),
-                    borderRadius: BorderRadius.circular(10),
+                  Container(
+                    width: 380,
+                    height: 90,
+                    margin: EdgeInsets.only(top: 20),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Color.fromARGB(60, 0, 0, 0), width: 1),
+                      color: Color(0xffEFEFEF),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: TextButton(onPressed: (){
+                      //해당게시물로 가기
+                      print('hello');
+                    }, child: Text('')),
                   ),
-                  child: TextButton(onPressed: (){
-                    //해당게시물로 가기
-                    print('hello');
-                  }, child: Text('')),
-                ),
-                Container(
-                  width: 380,
-                  height: 90,
-                  margin: EdgeInsets.only(top: 20),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Color.fromARGB(60, 0, 0, 0), width: 1),
-                    color: Color(0xffEFEFEF),
-                    borderRadius: BorderRadius.circular(10),
+                  Container(
+                    width: 380,
+                    height: 90,
+                    margin: EdgeInsets.only(top: 20),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Color.fromARGB(60, 0, 0, 0), width: 1),
+                      color: Color(0xffEFEFEF),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: TextButton(onPressed: (){
+                      //해당게시물로 가기
+                      print('hello');
+                    }, child: Text('')),
                   ),
-                  child: TextButton(onPressed: (){
-                    //해당게시물로 가기
-                    print('hello');
-                  }, child: Text('')),
-                ),
-                Container(
-                  width: 380,
-                  height: 90,
-                  margin: EdgeInsets.only(top: 20),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Color.fromARGB(60, 0, 0, 0), width: 1),
-                    color: Color(0xffEFEFEF),
-                    borderRadius: BorderRadius.circular(10),
+                  Container(
+                    width: 380,
+                    height: 90,
+                    margin: EdgeInsets.only(top: 20),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Color.fromARGB(60, 0, 0, 0), width: 1),
+                      color: Color(0xffEFEFEF),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: TextButton(onPressed: (){
+                      //해당게시물로 가기
+                      print('hello');
+                    }, child: Text('')),
                   ),
-                  child: TextButton(onPressed: (){
-                    //해당게시물로 가기
-                    print('hello');
-                  }, child: Text('')),
-                ),
-                Container(
-                  width: 380,
-                  height: 90,
-                  margin: EdgeInsets.only(top: 20),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Color.fromARGB(60, 0, 0, 0), width: 1),
-                    color: Color(0xffEFEFEF),
-                    borderRadius: BorderRadius.circular(10),
+                  Container(
+                    width: 380,
+                    height: 90,
+                    margin: EdgeInsets.only(top: 20),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Color.fromARGB(60, 0, 0, 0), width: 1),
+                      color: Color(0xffEFEFEF),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: TextButton(onPressed: (){
+                      //해당게시물로 가기
+                      print('hello');
+                    }, child: Text('')),
                   ),
-                  child: TextButton(onPressed: (){
-                    //해당게시물로 가기
-                    print('hello');
-                  }, child: Text('')),
-                ),
-                Container(
-                  width: 380,
-                  height: 90,
-                  margin: EdgeInsets.only(top: 20),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Color.fromARGB(60, 0, 0, 0), width: 1),
-                    color: Color(0xffEFEFEF),
-                    borderRadius: BorderRadius.circular(10),
+                  Container(
+                    width: 380,
+                    height: 90,
+                    margin: EdgeInsets.only(top: 20),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Color.fromARGB(60, 0, 0, 0), width: 1),
+                      color: Color(0xffEFEFEF),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: TextButton(onPressed: (){
+                      //해당게시물로 가기
+                      print('hello');
+                    }, child: Text('')),
                   ),
-                  child: TextButton(onPressed: (){
-                    //해당게시물로 가기
-                    print('hello');
-                  }, child: Text('')),
-                ),
-                Container(
-                  width: 380,
-                  height: 90,
-                  margin: EdgeInsets.only(top: 20),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Color.fromARGB(60, 0, 0, 0), width: 1),
-                    color: Color(0xffEFEFEF),
-                    borderRadius: BorderRadius.circular(10),
+                  Container(
+                    width: 380,
+                    height: 90,
+                    margin: EdgeInsets.only(top: 20),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Color.fromARGB(60, 0, 0, 0), width: 1),
+                      color: Color(0xffEFEFEF),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: TextButton(onPressed: (){
+                      //해당게시물로 가기
+                      print('hello');
+                    }, child: Text('')),
                   ),
-                  child: TextButton(onPressed: (){
-                    //해당게시물로 가기
-                    print('hello');
-                  }, child: Text('')),
-                ),
-                Container(
-                  width: 380,
-                  height: 90,
-                  margin: EdgeInsets.only(top: 20),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Color.fromARGB(60, 0, 0, 0), width: 1),
-                    color: Color(0xffEFEFEF),
-                    borderRadius: BorderRadius.circular(10),
+                  Container(
+                    width: 380,
+                    height: 90,
+                    margin: EdgeInsets.only(top: 20),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Color.fromARGB(60, 0, 0, 0), width: 1),
+                      color: Color(0xffEFEFEF),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: TextButton(onPressed: (){
+                      //해당게시물로 가기
+                      print('hello');
+                    }, child: Text('')),
                   ),
-                  child: TextButton(onPressed: (){
-                    //해당게시물로 가기
-                    print('hello');
-                  }, child: Text('')),
-                ),
-                Container(
-                  width: 380,
-                  height: 90,
-                  margin: EdgeInsets.only(top: 20),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Color.fromARGB(60, 0, 0, 0), width: 1),
-                    color: Color(0xffEFEFEF),
-                    borderRadius: BorderRadius.circular(10),
+                  Container(
+                    width: 380,
+                    height: 90,
+                    margin: EdgeInsets.only(top: 20),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Color.fromARGB(60, 0, 0, 0), width: 1),
+                      color: Color(0xffEFEFEF),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: TextButton(onPressed: (){
+                      //해당게시물로 가기
+                      print('hello');
+                    }, child: Text('')),
                   ),
-                  child: TextButton(onPressed: (){
-                    //해당게시물로 가기
-                    print('hello');
-                  }, child: Text('')),
-                ),
-                Container(
-                  width: 380,
-                  height: 90,
-                  margin: EdgeInsets.only(top: 20),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Color.fromARGB(60, 0, 0, 0), width: 1),
-                    color: Color(0xffEFEFEF),
-                    borderRadius: BorderRadius.circular(10),
+                  Container(
+                    width: 380,
+                    height: 90,
+                    margin: EdgeInsets.only(top: 20),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Color.fromARGB(60, 0, 0, 0), width: 1),
+                      color: Color(0xffEFEFEF),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: TextButton(onPressed: (){
+                      //해당게시물로 가기
+                      print('hello');
+                    }, child: Text('')),
                   ),
-                  child: TextButton(onPressed: (){
-                    //해당게시물로 가기
-                    print('hello');
-                  }, child: Text('')),
-                ),
-                Container(
-                  width: 380,
-                  height: 90,
-                  margin: EdgeInsets.only(top: 20),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Color.fromARGB(60, 0, 0, 0), width: 1),
-                    color: Color(0xffEFEFEF),
-                    borderRadius: BorderRadius.circular(10),
+                  Container(
+                    width: 380,
+                    height: 90,
+                    margin: EdgeInsets.only(top: 20),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Color.fromARGB(60, 0, 0, 0), width: 1),
+                      color: Color(0xffEFEFEF),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: TextButton(onPressed: (){
+                      //해당게시물로 가기
+                      print('hello');
+                    }, child: Text('')),
                   ),
-                  child: TextButton(onPressed: (){
-                    //해당게시물로 가기
-                    print('hello');
-                  }, child: Text('')),
-                ),
-                Container(
-                  width: 380,
-                  height: 90,
-                  margin: EdgeInsets.only(top: 20),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Color.fromARGB(60, 0, 0, 0), width: 1),
-                    color: Color(0xffEFEFEF),
-                    borderRadius: BorderRadius.circular(10),
+                  Container(
+                    width: 380,
+                    height: 90,
+                    margin: EdgeInsets.only(top: 20),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Color.fromARGB(60, 0, 0, 0), width: 1),
+                      color: Color(0xffEFEFEF),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: TextButton(onPressed: (){
+                      //해당게시물로 가기
+                      print('hello');
+                    }, child: Text('')),
                   ),
-                  child: TextButton(onPressed: (){
-                    //해당게시물로 가기
-                    print('hello');
-                  }, child: Text('')),
-                ),
-                Container(
-                  width: 380,
-                  height: 90,
-                  margin: EdgeInsets.only(top: 20),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Color.fromARGB(60, 0, 0, 0), width: 1),
-                    color: Color(0xffEFEFEF),
-                    borderRadius: BorderRadius.circular(10),
+                  Container(
+                    width: 380,
+                    height: 90,
+                    margin: EdgeInsets.only(top: 20),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Color.fromARGB(60, 0, 0, 0), width: 1),
+                      color: Color(0xffEFEFEF),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: TextButton(onPressed: (){
+                      //해당게시물로 가기
+                      print('hello');
+                    }, child: Text('')),
                   ),
-                  child: TextButton(onPressed: (){
-                    //해당게시물로 가기
-                    print('hello');
-                  }, child: Text('')),
-                ),
-                Container(
-                  width: 380,
-                  height: 90,
-                  margin: EdgeInsets.only(top: 20),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Color.fromARGB(60, 0, 0, 0), width: 1),
-                    color: Color(0xffEFEFEF),
-                    borderRadius: BorderRadius.circular(10),
+                  Container(
+                    width: 380,
+                    height: 90,
+                    margin: EdgeInsets.only(top: 20),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Color.fromARGB(60, 0, 0, 0), width: 1),
+                      color: Color(0xffEFEFEF),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: TextButton(onPressed: (){
+                      //해당게시물로 가기
+                      print('hello');
+                    }, child: Text('')),
                   ),
-                  child: TextButton(onPressed: (){
-                    //해당게시물로 가기
-                    print('hello');
-                  }, child: Text('')),
-                ),
-                Container(
-                  width: 380,
-                  height: 90,
-                  margin: EdgeInsets.only(top: 20),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Color.fromARGB(60, 0, 0, 0), width: 1),
-                    color: Color(0xffEFEFEF),
-                    borderRadius: BorderRadius.circular(10),
+                  Container(
+                    width: 380,
+                    height: 90,
+                    margin: EdgeInsets.only(top: 20),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Color.fromARGB(60, 0, 0, 0), width: 1),
+                      color: Color(0xffEFEFEF),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: TextButton(onPressed: (){
+                      //해당게시물로 가기
+                      print('hello');
+                    }, child: Text('')),
                   ),
-                  child: TextButton(onPressed: (){
-                    //해당게시물로 가기
-                    print('hello');
-                  }, child: Text('')),
-                ),
-                Container(
-                  width: 380,
-                  height: 90,
-                  margin: EdgeInsets.only(top: 20),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Color.fromARGB(60, 0, 0, 0), width: 1),
-                    color: Color(0xffEFEFEF),
-                    borderRadius: BorderRadius.circular(10),
+                  Container(
+                    width: 380,
+                    height: 90,
+                    margin: EdgeInsets.only(top: 20),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Color.fromARGB(60, 0, 0, 0), width: 1),
+                      color: Color(0xffEFEFEF),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: TextButton(onPressed: (){
+                      //해당게시물로 가기
+                      print('hello');
+                    }, child: Text('')),
                   ),
-                  child: TextButton(onPressed: (){
-                    //해당게시물로 가기
-                    print('hello');
-                  }, child: Text('')),
-                ),
-                Container(
-                  width: 380,
-                  height: 90,
-                  margin: EdgeInsets.only(top: 20),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Color.fromARGB(60, 0, 0, 0), width: 1),
-                    color: Color(0xffEFEFEF),
-                    borderRadius: BorderRadius.circular(10),
+                  Container(
+                    width: 380,
+                    height: 90,
+                    margin: EdgeInsets.only(top: 20),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Color.fromARGB(60, 0, 0, 0), width: 1),
+                      color: Color(0xffEFEFEF),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: TextButton(onPressed: (){
+                      //해당게시물로 가기
+                      print('hello');
+                    }, child: Text('')),
                   ),
-                  child: TextButton(onPressed: (){
-                    //해당게시물로 가기
-                    print('hello');
-                  }, child: Text('')),
-                ),
-                Container(
-                  width: 380,
-                  height: 90,
-                  margin: EdgeInsets.only(top: 20),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Color.fromARGB(60, 0, 0, 0), width: 1),
-                    color: Color(0xffEFEFEF),
-                    borderRadius: BorderRadius.circular(10),
+                  Container(
+                    width: 380,
+                    height: 90,
+                    margin: EdgeInsets.only(top: 20),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Color.fromARGB(60, 0, 0, 0), width: 1),
+                      color: Color(0xffEFEFEF),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: TextButton(onPressed: (){
+                      //해당게시물로 가기
+                      print('hello');
+                    }, child: Text('')),
                   ),
-                  child: TextButton(onPressed: (){
-                    //해당게시물로 가기
-                    print('hello');
-                  }, child: Text('')),
-                ),
-                Container(
-                  width: 380,
-                  height: 90,
-                  margin: EdgeInsets.only(top: 20),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Color.fromARGB(60, 0, 0, 0), width: 1),
-                    color: Color(0xffEFEFEF),
-                    borderRadius: BorderRadius.circular(10),
+                  Container(
+                    width: 380,
+                    height: 90,
+                    margin: EdgeInsets.only(top: 20),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Color.fromARGB(60, 0, 0, 0), width: 1),
+                      color: Color(0xffEFEFEF),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: TextButton(onPressed: (){
+                      //해당게시물로 가기
+                      print('hello');
+                    }, child: Text('')),
                   ),
-                  child: TextButton(onPressed: (){
-                    //해당게시물로 가기
-                    print('hello');
-                  }, child: Text('')),
-                ),
-                Container(
-                  width: 380,
-                  height: 90,
-                  margin: EdgeInsets.only(top: 20),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Color.fromARGB(60, 0, 0, 0), width: 1),
-                    color: Color(0xffEFEFEF),
-                    borderRadius: BorderRadius.circular(10),
+                  Container(
+                    width: 380,
+                    height: 90,
+                    margin: EdgeInsets.only(top: 20),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Color.fromARGB(60, 0, 0, 0), width: 1),
+                      color: Color(0xffEFEFEF),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: TextButton(onPressed: (){
+                      //해당게시물로 가기
+                      print('hello');
+                    }, child: Text('')),
                   ),
-                  child: TextButton(onPressed: (){
-                    //해당게시물로 가기
-                    print('hello');
-                  }, child: Text('')),
-                ),
-              ],
+                ],
+              ),
+            ),
+          ),
+          Positioned(
+            top: 650,
+            left: 350,
+            child: Container(
+              width: 70,
+              height: 70,
+              decoration: BoxDecoration(
+                color: Color.fromARGB(255, 130, 173, 252),
+                borderRadius: BorderRadius.circular(40)
+              ),
+              child: IconButton(onPressed: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => writeboard(),
+                  )
+                );
+                }, icon: Icon(Icons.note_alt_outlined,size: 50,color: Colors.white,)
+              ),
             ),
           )
         ],

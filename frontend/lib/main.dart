@@ -10,7 +10,6 @@ import 'package:noticeboard/notices/threeg.dart';
 import 'package:noticeboard/notices/ads.dart';
 import 'package:noticeboard/notices/singo.dart';
 
-
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -59,7 +58,10 @@ class NoticeBoard extends StatelessWidget {
                Container(
                   width: 90,
                  margin: EdgeInsets.fromLTRB(15, 10, 15, 10),
-                 color: Colors.white,
+                 decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8)
+                  ),
                   child: TextButton(onPressed: (){
                     Navigator.push(
                       context,
@@ -81,7 +83,10 @@ class NoticeBoard extends StatelessWidget {
                 Container(
                   width: 90,
                   margin: EdgeInsets.fromLTRB(0, 10, 15, 10),
-                  color: Colors.white,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8)
+                  ),
                   child: TextButton(onPressed: (){
                     Navigator.push(
                       context,
@@ -103,7 +108,10 @@ class NoticeBoard extends StatelessWidget {
                 Container(
                   width: 90,
                   margin: EdgeInsets.fromLTRB(0, 10, 15, 10),
-                  color: Colors.white,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8)
+                  ),
                   child: TextButton(onPressed: (){
                     Navigator.push(
                       context,
@@ -125,7 +133,10 @@ class NoticeBoard extends StatelessWidget {
                 Container(
                   width: 90,
                   margin: EdgeInsets.fromLTRB(0, 10, 15, 10),
-                  color: Colors.white,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8)
+                  ),
                   child: TextButton(onPressed: (){
                     Navigator.push(
                       context,
@@ -147,7 +158,10 @@ class NoticeBoard extends StatelessWidget {
                 Container(
                   width: 90,
                   margin: EdgeInsets.fromLTRB(0, 10, 15, 10),
-                  color: Colors.white,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8)
+                  ),
                   child: TextButton(onPressed: (){
                     Navigator.push(
                       context,
@@ -169,7 +183,10 @@ class NoticeBoard extends StatelessWidget {
                 Container(
                   width: 90,
                   margin: EdgeInsets.fromLTRB(0, 10, 15, 10),
-                  color: Colors.white,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8)
+                  ),
                   child: TextButton(onPressed: (){
                     Navigator.push(
                       context,
@@ -191,7 +208,10 @@ class NoticeBoard extends StatelessWidget {
                 Container(
                   width: 90,
                   margin: EdgeInsets.fromLTRB(0, 10, 15, 10),
-                  color: Colors.white,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8)
+                  ),
                   child: TextButton(onPressed: (){
                     Navigator.push(
                       context,
@@ -213,7 +233,10 @@ class NoticeBoard extends StatelessWidget {
                 Container(
                   width: 90,
                   margin: EdgeInsets.fromLTRB(0, 10, 15, 10),
-                  color: Colors.white,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8)
+                  ),
                   child: TextButton(onPressed: (){
                     Navigator.push(
                       context,
@@ -235,7 +258,10 @@ class NoticeBoard extends StatelessWidget {
                 Container(
                   width: 90,
                   margin: EdgeInsets.fromLTRB(0, 10, 15, 10),
-                  color: Colors.white,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8)
+                  ),
                   child: TextButton(onPressed: (){
                     Navigator.push(
                       context,
@@ -257,7 +283,10 @@ class NoticeBoard extends StatelessWidget {
                 Container(
                   width: 90,
                   margin: EdgeInsets.fromLTRB(0, 10, 15, 10),
-                  color: Colors.white,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8)
+                  ),
                   child: TextButton(onPressed: (){
                     Navigator.push(
                       context,
