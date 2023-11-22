@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:noticeboard/search.dart';
-import 'package:noticeboard/write.dart';
+import 'package:frontend/search.dart';
+import 'package:frontend/write.dart';
 
 class clubboard extends StatelessWidget{
   @override

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:noticeboard/notices/free.dart';
-import 'package:noticeboard/notices/club.dart';
-import 'package:noticeboard/notices/note.dart';
-import 'package:noticeboard/notices/ask.dart';
-import 'package:noticeboard/notices/graduate.dart';
-import 'package:noticeboard/notices/oneg.dart';
-import 'package:noticeboard/notices/twog.dart';
-import 'package:noticeboard/notices/threeg.dart';
-import 'package:noticeboard/notices/ads.dart';
-import 'package:noticeboard/notices/singo.dart';
+import 'package:frontend/notices/free.dart';
+import 'package:frontend/notices/club.dart';
+import 'package:frontend/notices/note.dart';
+import 'package:frontend/notices/ask.dart';
+import 'package:frontend/notices/graduate.dart';
+import 'package:frontend/notices/oneg.dart';
+import 'package:frontend/notices/twog.dart';
+import 'package:frontend/notices/threeg.dart';
+import 'package:frontend/notices/ads.dart';
+import 'package:frontend/notices/singo.dart';
 
 void main() => runApp(MyApp());
 
@@ -18,10 +18,122 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: '오성고에타',
-      home: NoticeBoard(),
+      home: LogIn(),
     );
   }
 }
+class LogIn extends StatefulWidget {
+  @override
+  State<LogIn> createState() => _LogInState();
+}
+
+class _LogInState extends State<LogIn> {
+  TextEditingController controller = TextEditingController();
+  TextEditingController controller2 = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('로그인'),
+        elevation: 0.0,
+        backgroundColor: Color.fromRGBO(130, 173, 252, 1),
+        centerTitle: true,
+      ),
+      // email, password 입력하는 부분을 제외한 화면을 탭하면, 키보드 사라지게 GestureDetector 사용 
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).unfocus();
+        },
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(padding: EdgeInsets.only(top: 50)),
+              Center(
+                child: Image(
+                  image: AssetImage('ohsunggo.png'),
+                  width: 100.0,
+                ),
+              ),
+              Form(
+                child: Theme(
+                data: ThemeData(
+                    primaryColor: Colors.white,
+                    inputDecorationTheme: InputDecorationTheme(
+                        labelStyle: TextStyle(color: Color.fromRGBO(130, 173, 252, 1)))),
+                child: Container(
+                    padding: EdgeInsets.all(40.0),
+                    child: Builder(builder: (context) {
+                      return Column(
+                        children: [
+                          TextField(
+                            controller: controller,
+                            autofocus: true,
+                            decoration: InputDecoration(labelText: 'email'),
+                            keyboardType: TextInputType.emailAddress,
+                          ),
+                          TextField(
+                            controller: controller2,
+                            decoration:
+                                InputDecoration(labelText: 'password'),
+                            keyboardType: TextInputType.text,
+                            obscureText: true, // 비밀번호 안보이도록 하는 것
+                          ),
+                          SizedBox(
+                            height: 40.0,
+                          ),
+                          ButtonTheme(
+                              minWidth: 100.0,
+                              height: 50.0,
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  if (controller.text == 'ETA' &&
+                                      controller2.text == '1234') {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (BuildContext context) =>
+                                                NoticeBoard()));
+                                  }
+                                  else if (controller.text == 'ETA' && controller2.text != '1234') {
+                                      showSnackBar(context, Text('비밀번호가 틀렸습니다.'));
+                                  }
+                                  else {
+                                    showSnackBar(context, Text('정보를 확인하세요'));
+                                  }
+                                },
+                                child: Icon(
+                                  Icons.arrow_forward,
+                                  color: Colors.white,
+                                  size: 40.0,
+                                ),
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.orangeAccent),
+                              ))
+                        ],
+                      );
+                    })),
+              ))
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+void showSnackBar(BuildContext context, Text text) {
+  final snackBar = SnackBar(
+    content: text,
+    backgroundColor: Color.fromARGB(255, 112, 48, 48),
+  );
+
+// Find the ScaffoldMessenger in the widget tree
+// and use it to show a SnackBar.
+  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+}
+
+
 
 class NoticeBoard extends StatelessWidget {
   @override
@@ -37,7 +149,7 @@ class NoticeBoard extends StatelessWidget {
           ),
         ),
         centerTitle: true,
-        backgroundColor: Color.fromARGB(255, 130, 173, 252),
+        backgroundColor: Color.fromRGBO(130, 173, 252, 1),
         elevation: 0.0,
         leading: Container(
           child: Image.asset('img/ohsunggo.png',),
