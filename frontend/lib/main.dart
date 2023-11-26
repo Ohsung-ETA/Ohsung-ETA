@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/TempPage.dart';
 import 'package:frontend/notices/free.dart';
 import 'package:frontend/notices/club.dart';
 import 'package:frontend/notices/note.dart';
@@ -10,6 +11,8 @@ import 'package:frontend/notices/threeg.dart';
 import 'package:frontend/notices/ads.dart';
 import 'package:frontend/notices/singo.dart';
 
+import "dart:async";
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -18,10 +21,49 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: '오성고에타',
-      home: LogIn(),
+      home: Loading(),
     );
   }
 }
+
+class Loading extends StatefulWidget {
+  const Loading({super.key});
+
+  @override
+  State<Loading> createState() => _LoadingState();
+}
+
+class _LoadingState extends State<Loading> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Timer(Duration(seconds: 3),() {
+      Navigator.pop(context);
+      Navigator.push(context, MaterialPageRoute(builder: (context) => LogIn()));
+    });
+  }
+  @override
+  Widget build(BuildContext context) {
+    return LoadingScreen();
+  }
+}
+
+class LoadingScreen extends StatelessWidget {
+  const LoadingScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Color.fromRGBO(130, 173, 252, 1),
+      child: Center(
+        child: Container(child: Image.asset("img/ohsunggo.png")),
+      ),
+    );
+  }
+}
+
+
 class LogIn extends StatefulWidget {
   @override
   State<LogIn> createState() => _LogInState();
@@ -51,7 +93,7 @@ class _LogInState extends State<LogIn> {
               Padding(padding: EdgeInsets.only(top: 50)),
               Center(
                 child: Image(
-                  image: AssetImage('ohsunggo.png'),
+                  image: AssetImage('img/ohsunggo.png'),
                   width: 100.0,
                 ),
               ),
@@ -93,7 +135,7 @@ class _LogInState extends State<LogIn> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (BuildContext context) =>
-                                                NoticeBoard()));
+                                                TempP()));
                                   }
                                   else if (controller.text == 'ETA' && controller2.text != '1234') {
                                       showSnackBar(context, Text('비밀번호가 틀렸습니다.'));
@@ -138,6 +180,9 @@ void showSnackBar(BuildContext context, Text text) {
 class NoticeBoard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    double screenwidth = MediaQuery.of(context).size.width;
+    double realwid = screenwidth/6;
+    double screenheight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 90,
@@ -452,7 +497,7 @@ class NoticeBoard extends StatelessWidget {
               children: [
                 Container(
                   width: 380,
-                  height: 450,
+                  height: (screenheight-70-90-25-90-60),
                   child: ListView(
                     scrollDirection: Axis.vertical,
                     children: [
@@ -599,90 +644,86 @@ class NoticeBoard extends StatelessWidget {
                     ],
                   ),
                 ),
-                Container(
-                  height: 90,
-                  color: Color.fromARGB(255, 130, 173, 252),
-                  margin: EdgeInsets.only(top: 20),
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 70,
-                        height: 70,
-                        margin: EdgeInsets.only(left: 13.5),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10)
-                        ),
-                        child: IconButton(onPressed:(){},
-                          icon: Icon(Icons.alarm),
-                          iconSize: 40,
-                          color: Color.fromARGB(60, 244, 67, 54),
-                        ),
-                      ),
-                      Container(
-                        width: 70,
-                        height: 70,
-                        margin: EdgeInsets.only(left: 13.5),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10)
-                        ),
-                        child: IconButton(onPressed:(){},
-                          icon: Icon(Icons.bento_outlined),
-                          iconSize: 40,
-                          color: Color.fromARGB(60, 53, 233, 221),
-                        ),
-                      ),
-                      Container(
-                        width: 70,
-                        height: 70,
-                        margin: EdgeInsets.only(left: 13.5),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10)
-                        ),
-                        child: IconButton(onPressed:(){},
-                          icon: Icon(Icons.note_alt_outlined),
-                          iconSize: 40,
-                          color: Color(0xff41D96C),
-                        ),
-                      ),
-                      Container(
-                        width: 70,
-                        height: 70,
-                        margin: EdgeInsets.only(left: 13.5),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10)
-                        ),
-                        child: IconButton(onPressed:(){},
-                          icon: Icon(Icons.grade_outlined),
-                          iconSize: 40,
-                          color: Color.fromARGB(60, 255, 170, 0),
-                        ),
-                      ),
-                      Container(
-                        width: 70,
-                        height: 70,
-                        margin: EdgeInsets.only(left: 13.5),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10)
-                        ),
-                        child: IconButton(onPressed:(){},
-                          icon: Icon(Icons.face),
-                          iconSize: 40,
-                          color: Color.fromARGB(60, 0, 132, 255),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                
               ],
             ),
           ),
         ],
-      )
+      ),
+      bottomNavigationBar: Row(children: [
+        Container(
+          width: realwid,
+          height: 70,
+          margin: EdgeInsets.only(left: realwid/6),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10)
+          ),
+          child: IconButton(onPressed:(){},
+            icon: Icon(Icons.alarm),
+            iconSize: 40,
+            color: Color.fromARGB(60, 244, 67, 54),
+          ),
+        ),
+        Container(
+          width: realwid,
+          height: 70,
+          margin: EdgeInsets.only(left: realwid/6),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10)
+          ),
+          child: IconButton(onPressed:(){},
+            icon: Icon(Icons.bento_outlined),
+            iconSize: 40,
+            color: Color.fromARGB(60, 53, 233, 221),
+          ),
+        ),
+        Container(
+          width: realwid,
+          height: 70,
+          margin: EdgeInsets.only(left: realwid/6),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10)
+          ),
+          child: IconButton(onPressed:(){},
+            icon: Icon(Icons.note_alt_outlined),
+            iconSize: 40,
+            color: Color(0xff41D96C),
+          ),
+        ),
+        Container(
+          width: realwid,
+          height: 70,
+          margin: EdgeInsets.only(left: realwid/6),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10)
+          ),
+          child: IconButton(onPressed:(){},
+            icon: Icon(Icons.grade_outlined),
+            iconSize: 40,
+            color: Color.fromARGB(60, 255, 170, 0),
+          ),
+        ),
+        Container(
+          width: realwid,
+          height: 70,
+          margin: EdgeInsets.only(left: realwid/6),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10)
+          ),
+          child: IconButton(onPressed:(){},
+            icon: Icon(Icons.face),
+            iconSize: 40,
+            color: Color.fromARGB(60, 0, 132, 255),
+          ),
+        ),
+
+      ]),
+
     );
   }
 }
