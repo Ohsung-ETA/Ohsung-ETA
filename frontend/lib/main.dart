@@ -13,6 +13,8 @@ import 'package:frontend/notices/singo.dart';
 
 import "dart:async";
 
+import 'package:frontend/score.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -651,7 +653,7 @@ class NoticeBoard extends StatelessWidget {
         ],
       ),
       bottomNavigationBar: Row(children: [
-        Container(
+       Container(
           width: realwid,
           height: 70,
           margin: EdgeInsets.only(left: realwid/6),
@@ -687,7 +689,7 @@ class NoticeBoard extends StatelessWidget {
             color: Colors.white,
             borderRadius: BorderRadius.circular(10)
           ),
-          child: IconButton(onPressed:(){},
+          child: IconButton(onPressed:(){Navigator.pop(context);Navigator.push(context, MaterialPageRoute(builder: (context) => NoticeBoard()));},
             icon: Icon(Icons.note_alt_outlined),
             iconSize: 40,
             color: Color(0xff41D96C),
@@ -701,7 +703,7 @@ class NoticeBoard extends StatelessWidget {
             color: Colors.white,
             borderRadius: BorderRadius.circular(10)
           ),
-          child: IconButton(onPressed:(){},
+          child: IconButton(onPressed:(){Navigator.pop(context);Navigator.push(context, MaterialPageRoute(builder: (context) => firstScoreboard()));},
             icon: Icon(Icons.grade_outlined),
             iconSize: 40,
             color: Color.fromARGB(60, 255, 170, 0),
@@ -721,6 +723,7 @@ class NoticeBoard extends StatelessWidget {
             color: Color.fromARGB(60, 0, 132, 255),
           ),
         ),
+
 
       ]),
 

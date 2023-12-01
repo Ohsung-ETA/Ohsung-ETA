@@ -266,7 +266,7 @@ class _inputoverlayState extends State<inputoverlay> {
                             height: screenheight/3,
                               child: ElevatedButton(
                                 onPressed: () {
-                                  if(int.parse(allnum.text) >= int.parse(ranking.text)
+                                  try {if(int.parse(allnum.text) >= int.parse(ranking.text)
                                   && int.parse(samenum.text) >= 1 && int.parse(allnum.text)*int.parse(ranking.text)*int.parse(counting.text) > 0
                                   && sub.text != "") {
                                     double realrank = double.parse(samenum.text)+double.parse(ranking.text)-1;
@@ -280,6 +280,18 @@ class _inputoverlayState extends State<inputoverlay> {
                                     }
                                     Navigator.pop(context);
                                   }
+
+                                  }catch(e) {
+                                    print(e);
+                                    showDialog(context: context,barrierDismissible: false, builder: ((context) {
+                                      return AlertDialog(
+                                    content: wrongOverlay(),
+                                  );
+                                  }));
+                                    
+
+                                  }
+                                  
                                 },
                                 child: Icon(
                                   Icons.check,

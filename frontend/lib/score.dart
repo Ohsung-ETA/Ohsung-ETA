@@ -1,7 +1,8 @@
 import "package:flutter/material.dart";
+import "package:frontend/Scores/BasicScore.dart";
 import "package:frontend/Scores/midScore.dart";
 import "package:frontend/Scores/pushScore.dart";
-import "package:fl_chart/fl_chart.dart";
+import "package:frontend/main.dart";
 
 class firstScoreboard extends StatelessWidget {
   const firstScoreboard({super.key});
@@ -147,13 +148,27 @@ class _inputoverlayState extends State<inputoverlay> {
                               child: ElevatedButton(
                                 onPressed: () {
                                   //목표등급 변경
-                                  String sc = controller.text;
-                                  if(double.parse(sc) >= 1 && double.parse(sc) <= 9) {
-                                    sc = double.parse(sc).toStringAsFixed(2);
-                                    wantScore = sc;
-                                    wantText = "목표등급\n    "+wantScore;
-                                    Navigator.pop(context);
+                                  try {
+                                    String sc = controller.text;
+                                      if(double.parse(sc) >= 1 && double.parse(sc) <= 9) {
+                                        sc = double.parse(sc).toStringAsFixed(2);
+                                        wantScore = sc;
+                                        wantText = "목표등급\n    "+wantScore;
+                                        Navigator.pop(context);
+                                      }
+
                                   }
+                                  catch(e) {
+                                    print(e);
+                                    showDialog(context: context,barrierDismissible: false, builder: ((context) {
+                                      return AlertDialog(
+                                    content: wrongOverlay(),
+                                  );
+                                  }));
+                                    
+
+                                  }
+                                  
                                 },
                                 child: Icon(
                                   Icons.check,
@@ -174,6 +189,7 @@ class _inputoverlayState extends State<inputoverlay> {
     );
   }
 }
+
 String wantScore = "0.00";
 String wantText = "목표등급\n    "+wantScore;
 String nowScore = "0.00";
@@ -312,7 +328,7 @@ class Basic extends StatelessWidget {
             color: Colors.white,
             borderRadius: BorderRadius.circular(10)
           ),
-          child: IconButton(onPressed:(){},
+          child: IconButton(onPressed:(){Navigator.pop(context);Navigator.push(context, MaterialPageRoute(builder: (context) => NoticeBoard()));},
             icon: Icon(Icons.note_alt_outlined),
             iconSize: 40,
             color: Color(0xff41D96C),
@@ -326,7 +342,7 @@ class Basic extends StatelessWidget {
             color: Colors.white,
             borderRadius: BorderRadius.circular(10)
           ),
-          child: IconButton(onPressed:(){},
+          child: IconButton(onPressed:(){Navigator.pop(context);Navigator.push(context, MaterialPageRoute(builder: (context) => firstScoreboard()));},
             icon: Icon(Icons.grade_outlined),
             iconSize: 40,
             color: Color.fromARGB(60, 255, 170, 0),

@@ -52,7 +52,7 @@ class _BasicState extends State<Basic> {
           ],
         ),
        
-        buttonss(),
+        buttonss(func: () {setState(() {});},),
       ],)
       
     );
@@ -60,7 +60,9 @@ class _BasicState extends State<Basic> {
 }
 
 class buttonss extends StatefulWidget {
-  const buttonss({super.key});
+  Function func;
+
+  buttonss({required this.func});
 
   @override
   State<buttonss> createState() => _buttonssState();
@@ -88,7 +90,7 @@ class _buttonssState extends State<buttonss> {
             return AlertDialog(
               content: inputoverlay(idx: -1),
             );}));
-            setState(() {print("setState");});
+            setState(() {print("setState"); widget.func();});
             }, icon: Icon(Icons.more_horiz))
 
           
@@ -232,6 +234,7 @@ class _inputoverlayState extends State<inputoverlay> {
                             height: screenheight/3,
                               child: ElevatedButton(
                                 onPressed: () {
+                                  try {
                                   if(idx != -1) {
                                     BS[idx] =BasicScore(subName: sub.text, rank: int.parse(ranking.text), time: int.parse(counting.text));
                                   }
@@ -240,6 +243,18 @@ class _inputoverlayState extends State<inputoverlay> {
                                     BS.add(BasicScore(subName: sub.text, rank: int.parse(ranking.text), time: int.parse(counting.text)));
                                   }
                                   Navigator.pop(context);
+
+                                  }
+                                  catch(e) {
+                                    print(e);
+                                    showDialog(context: context,barrierDismissible: false, builder: ((context) {
+                                      return AlertDialog(
+                                    content: wrongOverlay(),
+                                  );
+                                  }));
+                                    
+
+                                  }
                                   
                                 },
                                 child: Icon(
