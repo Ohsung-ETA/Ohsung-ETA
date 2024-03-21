@@ -1,9 +1,11 @@
+import 'dart:js_interop';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:frontend/Scores/BasicScore.dart';
 
 class LastScore extends StatelessWidget {
-  final int grade;
-  const LastScore({super.key,required this.grade});
+  const LastScore({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,90 +20,72 @@ class Basic extends StatefulWidget {
   State<Basic> createState() => _BasicState();
 }
 
-List<BasicScore> BS = [];
+
+List<List<BasicScore>> BS = [];
 
 class _BasicState extends State<Basic> {
+
+    @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    BS.addAll([[],[],[],[],[],[]]);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 90,
-        title: Text(
-          '학기말',
-          style: TextStyle(
-            fontSize: 50,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        centerTitle: true,
-        backgroundColor: Color.fromRGBO(130, 173, 252, 1),
-        elevation: 0.0,
-        leading: BackButton(),
-        leadingWidth: 100,
-      ),
+    double screenheight = MediaQuery.of(context).size.height-150;
+    double screenwidth = MediaQuery.of(context).size.width*0.7;
 
-      body: Column(children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text("평균등급 "+makeAvg(),style: TextStyle(fontSize: 20),),
-            Container(width: 20,),
-            ElevatedButton(onPressed: () {
-              //서버에 저장
-            }, child: Text("저장",style: TextStyle(fontSize: 20),))
-          ],
-        ),
-       
-        buttonss(func: () {setState(() {});},),
-      ],)
+
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: DefaultTabController(
+        length: 3,
+        child: Scaffold(
+          appBar: AppBar(
+            toolbarHeight: 50,
+            title: Text(
+              '학기말',
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            centerTitle: true,
+            backgroundColor: Color.fromRGBO(130, 173, 252, 1),
+            elevation: 0.0,
+            leading: BackButton(onPressed: () {Navigator.pop(context);},),
+            leadingWidth: 100,
+
+            bottom: TabBar(tabs: [Text("1학년"),Text("2학년"),Text("3학년")],),
+      ),
+      
+      body: TabBarView(
+        children: [
+          for(int i = 0;i<3;i++)
+            Column(
+              children: [
+                Text("1학기"),
+                Container(height: screenheight/2,width: screenwidth,
+                  child: buttonss(sets: () {setState(() {});}, BS: BS[i*2],),
+                ),
+                Text("2학기"),
+                Container(height: screenheight/2,width: screenwidth,
+                child: buttonss(sets: () {setState(() {});},BS: BS[i*2+1]),
+                ),
+              ],
+            ),
+      ])
+      
+      ),
+      )
       
     );
   }
 }
 
-class buttonss extends StatefulWidget {
-  Function func;
-
-  buttonss({required this.func});
-
-  @override
-  State<buttonss> createState() => _buttonssState();
-}
-
-class _buttonssState extends State<buttonss> {
-  @override
-  Widget build(BuildContext context) {
-    return Flexible(
-      fit: FlexFit.loose,
-      child: SingleChildScrollView(
-      child: Container(
-          child: Column(children: [
-            ListView.builder(
-              shrinkWrap: true,
-              itemCount: BS.length,
-              itemBuilder: (BuildContext bct, int idx) {
-                return ScoreButton(idx: idx);
-              },
-              physics: NeverScrollableScrollPhysics(),
-            ),
-
-            IconButton(onPressed: () async {
-            await showDialog(context: context,barrierDismissible: true, builder: ((context) {
-            return AlertDialog(
-              content: inputoverlay(idx: -1),
-            );}));
-            setState(() {print("setState"); widget.func();});
-            }, icon: Icon(Icons.more_horiz))
-
-          
-      ]),
-        )
-        
-      ));
-  }
-}
-
-String makeAvg() {
+String makeAvg(List<BasicScore> BS) {
   int allCount = 0;
   int allRank = 0;
   for(int i = 0;i<BS.length;i++) {
@@ -111,48 +95,10 @@ String makeAvg() {
   return (allRank/allCount).toStringAsFixed(2);
 }
 
-class ScoreButton extends StatefulWidget {
-  final int idx;
-  const ScoreButton({super.key,required this.idx});
-
-  @override
-  State<ScoreButton> createState() => _ScoreButtonState();
-}
-
-class _ScoreButtonState extends State<ScoreButton> {
-  @override
-  
-  Widget build(BuildContext context) {
-    int idx = widget.idx;
-    double screenwidth = MediaQuery.of(context).size.width;
-    double screenheight = MediaQuery.of(context).size.height;
-
-    return Column(children: [
-
-      Container(
-        width: screenwidth*0.8, height: screenheight*0.1,
-        child: ElevatedButton(onPressed: () async {
-        await showDialog(context: context,barrierDismissible: true, builder: ((context) {
-          return AlertDialog(
-            content: inputoverlay(idx: idx),
-          );}));
-        setState(() {});
-      },
-            child: Text(BS[idx].subName+BS[idx].rank.toString(),style: TextStyle(fontSize: 30),),
-            style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))),
-            )
-      ),
-      Container(height: 15,)
-    ],);
-
-  }
-}
-
-
-
 class inputoverlay extends StatefulWidget {
   final int idx;
-  const inputoverlay({super.key,required this.idx});
+  List<BasicScore> BS;
+  inputoverlay({required this.idx, required this.BS});
 
   @override
   State<inputoverlay> createState() => _inputoverlayState();
@@ -162,12 +108,28 @@ class _inputoverlayState extends State<inputoverlay> {
   TextEditingController sub= TextEditingController();
   TextEditingController ranking = TextEditingController();
   TextEditingController counting = TextEditingController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    int idx = widget.idx;
+    List<BasicScore> BS = widget.BS;
+
+    if(idx != -1) {
+      sub.text = BS[idx].subName;
+      counting.text = BS[idx].time.toString();
+      ranking.text = BS[idx].rank.toString();
+    } 
+  }
   
   @override
   Widget build(BuildContext context) {
     int idx = widget.idx;
+    List<BasicScore> BS = widget.BS;
     double screenwidth = MediaQuery.of(context).size.width*0.7;
-    double screenheight = MediaQuery.of(context).size.height*0.6;
+    double screenheight = 300;
     return Container(
     child: 
     Container(
@@ -277,3 +239,103 @@ class _inputoverlayState extends State<inputoverlay> {
      ,);
   }
 }
+
+
+class buttonss extends StatefulWidget {
+  Function sets;
+  List<BasicScore> BS;
+  buttonss({required this.sets, required this.BS});
+
+  @override
+  State<buttonss> createState() => _buttonssState();
+}
+
+class _buttonssState extends State<buttonss> {
+
+  @override
+  Widget build(BuildContext context) {
+    List<BasicScore> BS = widget.BS;
+
+    return Column(
+
+      children: [
+      Text("평균등급 "+makeAvg(BS),style: TextStyle(fontSize: 20),),
+      Container(width: 20,),
+
+      
+      Flexible(
+        fit: FlexFit.loose,
+        child: SingleChildScrollView(
+        child: Container(
+            child: Column(children: [
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: BS.length,
+                itemBuilder: (BuildContext bct, int idx) {
+                    return ScoreButton(idx: idx,sets: widget.sets,BS: BS,);
+                },
+                physics: NeverScrollableScrollPhysics(),
+              ),
+
+              IconButton(onPressed: () async {
+              await showDialog(context: context,barrierDismissible: true, builder: ((context) {
+              return AlertDialog(
+                content: inputoverlay(idx: -1,BS: BS),
+              );}
+              )).then((value) => {
+                widget.sets(),
+              setState(() {})
+              });
+              }, icon: Icon(Icons.more_horiz))
+
+            
+        ]),
+          )
+          
+        ))
+
+      ],
+    );
+  }
+}
+
+
+class ScoreButton extends StatefulWidget {
+  final int idx;
+  Function sets;
+  List<BasicScore> BS;
+  ScoreButton({required this.idx,required this.sets,required this.BS});
+
+  @override
+  State<ScoreButton> createState() => _ScoreButtonState();
+}
+
+class _ScoreButtonState extends State<ScoreButton> {
+  @override
+  
+  Widget build(BuildContext context) {
+    List<BasicScore> BS = widget.BS;
+    int idx = widget.idx;
+    double screenwidth = MediaQuery.of(context).size.width;
+    double screenheight = MediaQuery.of(context).size.height;
+
+    return Column(children: [
+
+      Container(
+        width: screenwidth*0.85, height: 70,
+        child: ElevatedButton(onPressed: () async  {
+        await showDialog(context: context,barrierDismissible: true, builder: ((context) {
+          return AlertDialog(
+            content: inputoverlay(idx: idx,BS: BS),
+          );})).then((value) => {setState(() {}),widget.sets()});
+      },
+            child: Text(BS[idx].subName+" "+BS[idx].rank.toString()+"등급",style: TextStyle(fontSize: 30)),
+            style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))),
+            )
+      ),
+      Container(height: 15,)
+    ],);
+
+  }
+}
+

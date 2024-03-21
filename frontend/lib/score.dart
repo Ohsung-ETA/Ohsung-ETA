@@ -41,61 +41,16 @@ class _scoreGraphState extends State<scoreGraph> {
           child: Container(margin: EdgeInsets.all(10),
             child: Container(color: Colors.blue),)),
 
-        Container(width: screenwidth, height: realhgt*0.3,child: ElevatedButton(onPressed: () {
-          showDialog(context: context,barrierDismissible: true, builder: ((context) {
-            return AlertDialog(
-          content: LastInput(func: () {setState(() {
-            print("setState()!");
+        Container(width: screenwidth, height: realhgt*0.3,child: ElevatedButton(onPressed: () async {
 
-            //서버에서 점수 받아오기
+            await Navigator.push(context, MaterialPageRoute(builder: ((context) => LastScore()))).then((value) => {setState(() {})});
 
-          });}),
-        );}));
           },child: Text("학기말 성적 입력",style: TextStyle(fontSize: 30),),
           style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))),),)
       ],);
   }
 }
 
-class LastInput extends StatelessWidget {
-  Function func;
-  LastInput({required this.func});
-
-  @override
-  Widget build(BuildContext context) {
-    double screenwidth = MediaQuery.of(context).size.width;
-    double screenheight = MediaQuery.of(context).size.height;
-    return Container(
-      width: screenwidth*0.7, height: screenheight*0.3,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-        Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-        Container(width: screenwidth*0.3,height: screenheight*0.05,child: ElevatedButton(onPressed: () async {Navigator.pop(context); await Navigator.push(context, MaterialPageRoute(builder: (context) => LastScore(grade: 1))); func();}, child: Text("1학년 1학기")),),
-        Container(width: screenwidth*0.05,height : screenheight*0.05),
-        Container(width: screenwidth*0.3,height: screenheight*0.05,child: ElevatedButton(onPressed: () async {Navigator.pop(context); await Navigator.push(context, MaterialPageRoute(builder: (context) => LastScore(grade: 2))); func();}, child: Text("1학년 2학기")),),
-      ]),
-      Container(height: screenheight*0.07,),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-        Container(width: screenwidth*0.3,height: screenheight*0.05,child: ElevatedButton(onPressed: () async {Navigator.pop(context);await Navigator.push(context, MaterialPageRoute(builder: (context) => LastScore(grade: 3))); func();}, child: Text("2학년 1학기")),),
-        Container(width: screenwidth*0.05,height : screenheight*0.05),
-        Container(width: screenwidth*0.3,height: screenheight*0.05,child: ElevatedButton(onPressed: () async {Navigator.pop(context);await Navigator.push(context, MaterialPageRoute(builder: (context) => LastScore(grade: 4))); func();}, child: Text("2학년 2학기")),),
-      ]),
-      
-      Container(height: screenheight*0.07,),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-        Container(width: screenwidth*0.3,height: screenheight*0.05,child: ElevatedButton(onPressed: () async {Navigator.pop(context);await Navigator.push(context, MaterialPageRoute(builder: (context) => LastScore(grade: 5)));func();}, child: Text("3학년 1학기")),),
-      ]),
-      ],)
-    );
-  }
-}
 
 
 
@@ -249,12 +204,14 @@ class Btnwant extends StatefulWidget {
 class _BtnwantState extends State<Btnwant> {
   @override
   Widget build(BuildContext context) {
-    return TextButton(onPressed: () {
-      showDialog(context: context,barrierDismissible: true, builder: ((context) {
+    return TextButton(onPressed: () async {
+      await showDialog(context: context,barrierDismissible: true, builder: ((context) {
         return AlertDialog(
           content: inputoverlay(),
-        );}));
-      setState(() {});
+        );})).then((value) => {
+          setState(() {})
+        });
+      
     }, child: Text(wantText,style: TextStyle(fontSize: 25),));
   }
 }

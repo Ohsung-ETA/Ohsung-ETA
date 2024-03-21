@@ -19,6 +19,13 @@ class Basic extends StatefulWidget {
 List<BasicScore> BS = [];
 
 class _BasicState extends State<Basic> {
+  
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,11 +51,10 @@ class _BasicState extends State<Basic> {
           children: [
             Text("평균등급 "+makeAvg(),style: TextStyle(fontSize: 20),),
             Container(width: 20,),
-            ElevatedButton(onPressed: () {}, child: Text("저장",style: TextStyle(fontSize: 20),))
           ],
         ),
        
-        buttonss(),
+        buttonss(sets: () {setState(() {});},),
       ],)
       
     );
@@ -56,7 +62,8 @@ class _BasicState extends State<Basic> {
 }
 
 class buttonss extends StatefulWidget {
-  const buttonss({super.key});
+  Function sets;
+  buttonss({required this.sets});
 
   @override
   State<buttonss> createState() => _buttonssState();
@@ -74,7 +81,7 @@ class _buttonssState extends State<buttonss> {
               shrinkWrap: true,
               itemCount: BS.length,
               itemBuilder: (BuildContext bct, int idx) {
-                return ScoreButton(idx: idx);
+                  return ScoreButton(idx: idx,sets: widget.sets);
               },
               physics: NeverScrollableScrollPhysics(),
             ),
@@ -83,8 +90,11 @@ class _buttonssState extends State<buttonss> {
             await showDialog(context: context,barrierDismissible: true, builder: ((context) {
             return AlertDialog(
               content: inputoverlay(idx: -1),
-            );}));
-            setState(() {print("setState");});
+            );}
+            )).then((value) => {
+              widget.sets(),
+            setState(() {})
+            });
             }, icon: Icon(Icons.more_horiz))
 
           
@@ -95,19 +105,11 @@ class _buttonssState extends State<buttonss> {
   }
 }
 
-String makeAvg() {
-  int allCount = 0;
-  int allRank = 0;
-  for(int i = 0;i<BS.length;i++) {
-    allRank += BS[i].rank*BS[i].time;
-    allCount += BS[i].time;
-  }
-  return (allRank/allCount).toStringAsFixed(2);
-}
 
 class ScoreButton extends StatefulWidget {
   final int idx;
-  const ScoreButton({super.key,required this.idx});
+  Function sets;
+  ScoreButton({required this.idx,required this.sets});
 
   @override
   State<ScoreButton> createState() => _ScoreButtonState();
@@ -124,15 +126,14 @@ class _ScoreButtonState extends State<ScoreButton> {
     return Column(children: [
 
       Container(
-        width: screenwidth*0.8, height: screenheight*0.1,
+        width: screenwidth*0.85, height: 70,
         child: ElevatedButton(onPressed: () async {
         await showDialog(context: context,barrierDismissible: true, builder: ((context) {
           return AlertDialog(
             content: inputoverlay(idx: idx),
-          );}));
-        setState(() {});
+          );})).then((value) => {setState(() {}),widget.sets()});
       },
-            child: Text(BS[idx].subName+BS[idx].rank.toString(),style: TextStyle(fontSize: 30),),
+            child: Text(BS[idx].subName+" "+BS[idx].rank.toString()+"등급",style: TextStyle(fontSize: 30)),
             style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))),
             )
       ),
@@ -158,14 +159,26 @@ class _inputoverlayState extends State<inputoverlay> {
   TextEditingController counting = TextEditingController();
   TextEditingController samenum = TextEditingController();
   TextEditingController allnum = TextEditingController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    int idx = widget.idx;
+
+    if(idx != -1) {
+      sub.text = BS[idx].subName;
+      counting.text = BS[idx].time.toString();
+    } 
+  }
   @override
   Widget build(BuildContext context) {
     int idx = widget.idx;
     double screenwidth = MediaQuery.of(context).size.width*0.7;
-    double screenheight = MediaQuery.of(context).size.height*0.6;
     return Container(
       width: screenwidth,
-      height: screenheight,
+      height: 270,
       child: GestureDetector(
         onTap: () {
           FocusScope.of(context).unfocus();
@@ -187,7 +200,7 @@ class _inputoverlayState extends State<inputoverlay> {
                           Row(
                             children: [
                               Container(
-                                height: screenheight/3,
+                                height: 100,
                                 width: screenwidth*0.65,
                                 child:TextField(
                                   controller: sub,
@@ -198,12 +211,12 @@ class _inputoverlayState extends State<inputoverlay> {
                               ),
 
                               Container(
-                                height: screenheight/3,
+                                height: 100,
                                 width: screenwidth*0.15,
                               ),
 
                               Container(
-                                height: screenheight/3,
+                                height: 100,
                                 width: screenwidth*0.15,
                                 child: TextField(
                                   controller: counting,
@@ -220,7 +233,7 @@ class _inputoverlayState extends State<inputoverlay> {
                           Row(
                             children: [
                               Container(
-                                height: screenheight/3,
+                                height: 100,
                                 width: screenwidth*0.15,
                                 child: TextField(
                                   controller: ranking,
@@ -230,12 +243,12 @@ class _inputoverlayState extends State<inputoverlay> {
                                 ),
                               ),
                               Container(
-                                height: screenheight/3,
+                                height: 100,
                                 width: screenwidth*0.1,
                               ),
 
                               Container(
-                                height: screenheight/3,
+                                height: 100,
                                 width: screenwidth*0.3,
                                 child: TextField(
                                   controller: samenum,
@@ -245,13 +258,13 @@ class _inputoverlayState extends State<inputoverlay> {
                                 ),
                               ),
                               Container(
-                                height: screenheight/3,
+                                height: 100,
                                 width: screenwidth*0.1,
                               ),
 
 
                               Container(
-                                height: screenheight/3,
+                                height: 100,
                                 width: screenwidth*0.3,
                                 child: TextField(
                                   controller: allnum,
@@ -263,7 +276,7 @@ class _inputoverlayState extends State<inputoverlay> {
                             ],
                           ),
                           ButtonTheme(
-                            height: screenheight/3,
+                            height: 100,
                               child: ElevatedButton(
                                 onPressed: () {
                                   try {if(int.parse(allnum.text) >= int.parse(ranking.text)
@@ -324,4 +337,15 @@ int makeGrade(double rank, double all) {
   if((all/100*89).roundToDouble() >= rank) return 7;
   if((all/100*96).roundToDouble() >= rank) return 8;
   else return 9;
+}
+
+
+String makeAvg() {
+  int allCount = 0;
+  int allRank = 0;
+  for(int i = 0;i<BS.length;i++) {
+    allRank += BS[i].rank*BS[i].time;
+    allCount += BS[i].time;
+  }
+  return (allRank/allCount).toStringAsFixed(2);
 }
